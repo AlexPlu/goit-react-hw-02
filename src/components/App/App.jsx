@@ -5,13 +5,11 @@ import Feedback from "../Feedback/Feedback";
 import Notification from "../Notification/Notification";
 
 function App() {
-  const initialFeedback = JSON.parse(localStorage.getItem("feedback")) || {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-  };
+  const initialFeedback = { good: 0, neutral: 0, bad: 0 };
+  const initialState =
+    JSON.parse(localStorage.getItem("feedback")) || initialFeedback;
 
-  const [feedback, setFeedback] = useState(initialFeedback);
+  const [feedback, setFeedback] = useState(initialState);
 
   const updateFeedback = (feedbackType) => {
     setFeedback((prevFeedback) => ({
@@ -28,11 +26,7 @@ function App() {
   const positiveFeedback = Math.round((feedback.good / totalFeedback) * 100);
 
   const resetFeedback = () => {
-    setFeedback({
-      good: 0,
-      neutral: 0,
-      bad: 0,
-    });
+    setFeedback(initialFeedback);
   };
 
   return (
